@@ -293,17 +293,12 @@ public class CompanionDeviceManagerService extends SystemService implements Bind
             if (component.flattenToString().length() > MAX_CN_LENGTH) {
                 throw new IllegalArgumentException("Component name is too long.");
             }
-            String packageTitle = BidiFormatter.getInstance().unicodeWrap(
-                    getPackageInfo(callingPackage, userId)
-                            .applicationInfo
-                            .loadSafeLabel(getContext().getPackageManager())
-                            .toString());
-            long identity = Binder.clearCallingIdentity();
+            final long identity = Binder.clearCallingIdentity();
             try {
                 return PendingIntent.getActivity(getContext(),
                         0 /* request code */,
                         NotificationAccessConfirmationActivityContract.launcherIntent(
-                                userId, component, packageTitle),
+                                getContext(), userId, component),
                         PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_ONE_SHOT
                                 | PendingIntent.FLAG_CANCEL_CURRENT);
             } finally {
