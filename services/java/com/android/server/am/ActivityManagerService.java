@@ -2651,8 +2651,7 @@ public final class ActivityManagerService extends ActivityManagerNative
             final int procCount = procs.size();
             for (int i = 0; i < procCount; i++) {
                 final int procUid = procs.keyAt(i);
-                if (UserHandle.isApp(procUid) || !UserHandle.isSameUser(procUid, uid)
-                        || UserHandle.isIsolated(procUid)) {
+                if (UserHandle.isApp(procUid) || !UserHandle.isSameUser(procUid, uid)) {
                     // Don't use an app process or different user process for system component.
                     continue;
                 }
