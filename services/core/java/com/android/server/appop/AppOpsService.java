@@ -1984,6 +1984,9 @@ public class AppOpsService extends IAppOpsService.Stub {
         } catch (SecurityException ignored) {
             return AppOpsManager.MODE_ERRORED;
         }
+        if (isOpRestrictedDueToSuspend(code, packageName, uid)) {
+            return AppOpsManager.MODE_IGNORED;
+        }
     }
 
     @Override
